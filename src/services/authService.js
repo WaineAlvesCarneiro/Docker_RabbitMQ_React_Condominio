@@ -1,6 +1,6 @@
 import api from '../api/api';
 
-const API_URL = '/auth';
+const API_URL = '/Auth';
 
 export const authService = {
   login: async (username, password) => {
