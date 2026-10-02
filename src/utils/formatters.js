@@ -26,7 +26,12 @@ export const parseIsoDateLocal = (dateString) => {
 
 export const formatarData = (data) => {
     const d = parseIsoDateLocal(data);
-    return d ? format(d, 'dd/MM/yyyy') : '';
+    return d && isValid(d) ? format(d, 'yyyy-MM-dd') : null;
+};
+
+export const formatarDataParaEnvio = (data) => {
+  const d = parseIsoDateLocal(data);
+  return d && isValid(d) ? format(d, 'yyyy-MM-dd') : null;
 };
 
 export const validarDataParaEnvio = (data) => {

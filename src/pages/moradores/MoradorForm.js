@@ -85,12 +85,14 @@ function MoradorForm({ onSave, onCancel, moradorData }) {
             ...morador,
             dataEntrada: morador.dataEntrada ? formatarData(morador.dataEntrada) : null,
             dataSaida: morador.dataSaida ? formatarData(morador.dataSaida) : null,
+            dataInclusao: formatarData(new Date()),
+            dataAlteracao: morador.id && morador.id !== '0' ? formatarData(new Date()) : null,
             imovelId: parseInt(morador.imovelId),
             empresaId: parseInt(morador.empresaId)
         };
 
         delete toSend.imovelDto;
-
+        console.log('Dados a enviar:', toSend);
         await onSave(toSend);
         setLoading(false);
     };

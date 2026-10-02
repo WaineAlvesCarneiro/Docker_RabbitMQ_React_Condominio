@@ -11,7 +11,7 @@ import stylesTableFilters from '../../components/common/TableFilters.module.css'
 import moradorService from '../../services/moradorService';
 import MoradorForm from './MoradorForm';
 import MoradoresTable from './MoradoresTable';
-import { parseIsoDateLocal, validarDataParaEnvio, validarDataSaida } from '../../utils/formatters';
+import { formatarDataParaEnvio, validarDataParaEnvio, validarDataSaida } from '../../utils/formatters';
 
 function Moradores() {
   const [loading, setLoading] = useState(true);
@@ -109,8 +109,8 @@ function Moradores() {
       }
       
       if (moradorData.dataSaida && moradorData.dataEntrada) {
-        const entrada = parseIsoDateLocal(moradorData.dataEntrada);
-        const saida = parseIsoDateLocal(moradorData.dataSaida);
+        const entrada = formatarDataParaEnvio(moradorData.dataEntrada);
+        const saida = formatarDataParaEnvio(moradorData.dataSaida);
         
         if (saida < entrada) {
           notificationService.error('Data de saída não pode ser anterior à data de entrada!');
@@ -127,11 +127,11 @@ function Moradores() {
       if (editingMorador) {
         const dadosFormatados = {
           ...moradorData,
-          dataEntrada: parseIsoDateLocal(moradorData.dataEntrada),
+          dataEntrada: formatarDataParaEnvio(moradorData.dataEntrada),
           dataSaida: moradorData.dataSaida
-            ? parseIsoDateLocal(moradorData.dataSaida)
+            ? formatarDataParaEnvio(moradorData.dataSaida)
             : null,
-          dataAlteracao: parseIsoDateLocal(new Date()),
+          dataAlteracao: formatarDataParaEnvio(new Date()),
         };
 
         await moradorService.update({ ...dadosFormatados, id: editingMorador.id }, user.token);
@@ -141,8 +141,8 @@ function Moradores() {
         const IdEmpresa = user.empresaId;
         const dadosFormatados = {
           ...moradorData,
-          dataEntrada: parseIsoDateLocal(moradorData.dataEntrada),
-          dataInclusao: parseIsoDateLocal(new Date()),
+          dataEntrada: formatarDataParaEnvio(moradorData.dataEntrada),
+          dataInclusao: formatarDataParaEnvio(new Date()),
           empresaId: IdEmpresa
         };
 
